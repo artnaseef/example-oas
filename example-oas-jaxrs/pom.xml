@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.artnaseef.example</groupId>
+        <artifactId>example-oas</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>example-oas-jaxrs</artifactId>
+    <name>Example OAS ::: JAX-RS Library</name>
+
+    <description>
+        Example API library based on JAX-RS built using a simple OAS 3.0 (swagger) Specification.
+    </description>
+
+    <dependencies>
+       <dependency>
+           <groupId>javax.ws.rs</groupId>
+           <artifactId>javax.ws.rs-api</artifactId>
+           <version>2.1.1</version>
+       </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.4.3.Final</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>4.3.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <inputSpec>${project.basedir}/src/spec/api.yaml</inputSpec>
+                     <generatorName>jaxrs-spec</generatorName>
+                    <!--<generatorName>jaxrs-cxf-extended</generatorName>-->
+                    <output>${project.build.directory}/generated-sources</output>
+                    <strictSpec>false</strictSpec>
+                    <configOptions>
+                        <interfaceOnly>true</interfaceOnly>
+                        <returnResponse>false</returnResponse>
+                        <generatePom>false</generatePom>
+                        <useSwaggerAnnotations>false</useSwaggerAnnotations>
+                    </configOptions>
+                    <apiPackage>com.artnaseef.example.oas.intf</apiPackage>
+                    <modelPackage>com.artnaseef.example.oas.model</modelPackage>
+                    <generateModelTests>false</generateModelTests>
+                    <generateApiTests>false</generateApiTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${project.build.directory}/generated-sources/src/gen</source>
+                    </sources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

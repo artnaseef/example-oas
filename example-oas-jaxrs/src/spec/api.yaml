@@ -1,0 +1,28 @@
+---
+openapi: "3.0.0"
+info:
+  title: "Hello Service Impl"
+  description: "Example \"Hello\" API"
+  contact:
+    email: "art@artnaseef.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+  version: "1.0.0-oas3"
+servers:
+- url: "https://virtserver.swaggerhub.com/ArtNaseefPersonal/hello-service/1.0.0"
+paths:
+  /hello:
+    get:
+      summary: "Say Hello"
+      description: "Hello\n"
+      operationId: "hello"
+      responses:
+        "200":
+          description: "Respond with hello"
+          content:
+            text/plain:
+              schema:
+                type: "string"
+        "400":
+          description: "bad input parameter"
